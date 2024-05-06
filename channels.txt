@@ -1,0 +1,8 @@
+channels:
+1. public - allowed to all
+2. private - only used by authenticated users
+3. presence - used by authenticated users. used to store the presence like leave join and all activities
+
+how to use?
+create event implements shouldbroadcast
+

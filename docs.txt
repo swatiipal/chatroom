@@ -2,7 +2,7 @@
 
 ls
 
-php artisan install:broadcasting 
+php artisan install:broadcasting  
 reverb & node yes
 
 node --version
@@ -118,3 +118,6 @@ QUEUE_CONNECTION=sync
 run-> php artisan config:cache
 
 run all commands again
+
+
+***Issue i face before is not running npm run build before npm run dev and not added @vite(['resources/css/app.css', 'resources/js/app.js']);***

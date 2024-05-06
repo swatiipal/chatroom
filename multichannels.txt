@@ -1,0 +1,10 @@
+
+
+
+
+php artisan make:channel OrderChannel
+
+routes/channels.php
+use App\Broadcasting\OrderChannel;
+Broadcast::channel('orders.{order}', OrderChannel::class);
+
