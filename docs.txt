@@ -1,0 +1,120 @@
+1. composer create-project laravel/laravel chatroom
+
+ls
+
+php artisan install:broadcasting 
+reverb & node yes
+
+node --version
+
+add echo.js below line of code
+window.Echo.channel('chats')
+     .listen('MessageSent', (e)=>{
+        console.log(e);
+});
+
+npm run build
+
+changes in welcome.blade file
+added below style tag 
+    @vite(['resources/css/app.css', 'resources/js/app.js']);
+//run project
+
+php artisan reverb:start
+
+
+php artisan make:event MessageSent
+
+should broadcast
+
+public string $name,
+public string $message
+
+new Channel('chats'),
+
+//run //donot close
+
+php artisan tinker
+App\Events\MessageSent::dispatch("name1", "message sent"); //donot close
+
+.env -> queue_connection: database
+
+php artisan queue:work //run
+
+php artisan make:view chatbox --> in this add html
+after that in welcome blade file add @include('chatbox')
+
+run -->-- tailwind css commands {{https://tailwindcss.com/docs/guides/laravel}}
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+follow till app.css and terminal command run -> npm run dev
+
+https://cdnjs.com/libraries/jquery --> add jquery script in welcome file
+
+chatbox.blade -->
+
+<script>
+    $(document).ready(function(){
+        let open = true;
+        $('#toggleButton').on('click', function () {
+            open = !open;
+            $('#chatBox').toggleClass('-translate-y-0', open)
+                .toggleClass('translate-y-full', !open);
+            $('#openIcon').toggle(!open);
+            $('#closeIcon').toggle(open);
+        });
+    });  
+</script>
+
+$('#msgForm').on('submit', function (e) {
+    e.preventDefault();
+    let message = $('#msgText').val();
+    $.post('/message-sent', {_token: '{{ csrf_token() }}',message: message}, (resp) => {
+        console.log(resp);
+        $('#msgText').val('');
+    }).catch((err) => {
+        console.error(err);
+    });
+});
+
+web.php -->
+Route::post('/message-sent', function (\Illuminate\Http\Request $request){
+ return response()->json(['error'=> false, 'message'=> 'Message sent!']);
+});
+
+Route::post('/message-sent', function (\Illuminate\Http\Request $request){
+    \App\Events\MessageSent::dispatch('Swfsdfds', 'hello!');
+    return response()->json(['error'=> false, 'message'=> 'Message sent!']);
+});
+//reload
+
+comment echo.js below line of code
+// window.Echo.channel('chats')
+//     .listen('MessageSent', (e)=>{
+//         console.log(e);
+// });
+
+
+add below code in chatbox.blade.php
+window.Echo.channel('chats')
+    .listen('MessageSent', (e) => {
+        console.log(e);
+        $('#messages').append(`<div><span class="text-indigo-600">${e.name}:</span> <span class="dark:text-white">${e.text}</span></div>`);
+    });
+//reload
+
+Route::post('/message-sent', function (\Illuminate\Http\Request $request){
+    if(!session()->has('username'))
+        session()->put('username', Faker\Factory::create()->userName);
+    \App\Events\MessageSent::dispatch(session()->get('username'), $request->message);
+    return response()->json(['error'=> false, 'message'=> 'Message sent!']);
+});
+//reload & test
+
+.env -->
+QUEUE_CONNECTION=sync
+
+run-> php artisan config:cache
+
+run all commands again
