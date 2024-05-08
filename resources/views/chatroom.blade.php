@@ -51,9 +51,8 @@
                     <div>
                         <form id="msgForm" class="flex gap-2">
                             <input id="msgText" type="text" name="message" class="block w-full border px-2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Send
-                            </button>
+                            
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Send</button>
                         </form>
                     </div>
                 </div>
@@ -67,8 +66,7 @@
 
             $('#toggleButton').on('click', function () {
                 open = !open;
-                $('#chatBox').toggleClass('-translate-y-0', open)
-                    .toggleClass('translate-y-full', !open);
+                $('#chatBox').toggleClass('-translate-y-0', open).toggleClass('translate-y-full', !open);
                 $('#openIcon').toggle(!open);
                 $('#closeIcon').toggle(open);
             });
@@ -86,11 +84,10 @@
                 });
             });
 
-            window.Echo.channel('chats')
-                .listen('MessageSent', (e) => {
-                    console.log(e);
-                    $('#messages').append(`<div><span class="text-indigo-600">${e.name}:</span> <span class="dark:text-white">${e.text}</span></div>`);
-                });
+            window.Echo.channel('chats').listen('MessageSent', (e) => {
+                console.log(e);
+                $('#messages').append(`<div><span class="text-indigo-600">${e.name}:</span> <span class="dark:text-white">${e.text}</span></div>`);
+            });
 
             // $('.user-list').on('click', function() {
             //     var userId = $(this).val();
