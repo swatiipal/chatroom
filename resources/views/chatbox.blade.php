@@ -33,7 +33,8 @@
 
         $('#toggleButton').on('click', function () {
             open = !open;
-            $('#chatBox').toggleClass('-translate-y-0', open).toggleClass('translate-y-full', !open);
+            $('#chatBox').toggleClass('-translate-y-0', open)
+                .toggleClass('translate-y-full', !open);
             $('#openIcon').toggle(!open);
             $('#closeIcon').toggle(open);
         });
@@ -50,10 +51,11 @@
             });
         });
 
-        window.Echo.channel('chats').listen('MessageSent', (e) => {
-            console.log(e);
-            $('#messages').append(`<div><span class="text-indigo-600">${e.name}:</span> <span class="dark:text-white">${e.text}</span></div>`);
-        });
+        window.Echo.channel('chats')
+            .listen('MessageSent', (e) => {
+                console.log(e);
+                $('#messages').append(`<div><span class="text-indigo-600">${e.name}:</span> <span class="dark:text-white">${e.text}</span></div>`);
+            });
 
     });
     
